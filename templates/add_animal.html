@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Animal</title>
+</head>
+<body>
+    <h1>Add Animal</h1>
+
+    <form id="addAnimalForm" action="{{ url_for('add_animal') }}" method="POST" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+        <br>
+
+        <label for="shelter_name">Shelter:</label>
+        <select name="shelter_name" required disabled>
+            <option value="1">Shelter 1</option>
+            <option value="2">Shelter 2</option>
+            <!-- Другие варианты -->
+        </select>
+        <br>
+
+        <label for="animal_type_id">Animal Type ID:</label>
+        <select name="animal_type_id" required disabled>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <!-- Другие варианты -->
+        </select>
+        <br>
+
+        <label for="photo">Photo:</label>
+        <input type="file" name="photo" accept="image/*">
+        <br>
+
+        <label for="gender">Gender:</label>
+        <input type="text" name="gender" required>
+        <br>
+
+        <label for="age">Age:</label>
+        <input type="text" name="age" required>
+        <br>
+
+        <label for="color">Color:</label>
+        <input type="text" name="color">
+        <br>
+
+        <label for="breed">Breed:</label>
+        <input type="text" name="breed">
+        <br>
+
+        <label for="features">Features:</label>
+        <textarea name="features"></textarea>
+        <br>
+
+        <label for="how_found">How Found:</label>
+        <input type="text" name="how_found">
+        <br>
+
+        <button type="submit">Add Animal</button>
+    </form>
+</body>
+</html>

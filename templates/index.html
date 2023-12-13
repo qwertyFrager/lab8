@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Shelter</title>
+
+    <style>
+        img {
+            max-width: 320px; /* Ограничение по ширине до 100% от родительского контейнера */
+        }
+    </style>
+</head>
+<body>
+    <h1>Animal Shelter</h1>
+
+    <div id="animalList">
+        <!-- Здесь будут отображаться данные из API -->
+    </div>
+
+    <button onclick="openAddAnimalForm()">Add Animal</button>
+
+    <script>
+        function openAddAnimalForm() {
+            // Открывает страницу с формой добавления животного
+            window.location.href = "{{ url_for('add_animal') }}";
+        }
+
+        function deleteAnimal(animalId) {
+            // Выполняет запрос на удаление животного
+            fetch(`/delete_animal/${animalId}`, {
+                method: 'POST',
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Обновляет страницу после успешного удаления
+                    window.location.reload();
+                } else {
+                    console.error('Error deleting animal:', response.status);
+                }
+            })
+            .catch(error => console.error('Error deleting animal:', error));
+        }
+
+        // Выполняем запрос к API и отображаем данные
+        fetch('/api/animals')
+            .then(response => response.json())
+            .then(data => {
+                const animalList = document.getElementById('animalList');
+
+                data.forEach(animal => {
+                    const animalElement = document.createElement('div');
+                    animalElement.innerHTML = `
+                        <p>${animal.Name}, ${animal.Gender}, ${animal.Age} years old</p>
+                        <img src="/img/${animal.Photo}" alt="${animal.Name}">
+                        <p>Color: ${animal.Color}</p>
+                        <p>Breed: ${animal.Breed}</p>
+                        <p>Features: ${animal.Features}</p>
+                        <button onclick="deleteAnimal(${animal.Animal_ID})">Delete</button>
+                        <hr>
+                    `;
+                    animalList.appendChild(animalElement);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
