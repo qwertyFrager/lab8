@@ -1,7 +1,7 @@
 services:
   - name: web
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -b 0.0.0.0:$PORT your_app_module:app
+    startCommand: gunicorn -b 0.0.0.0:$PORT app:app
     env:
       - key: FLASK_ENV
         value: production
